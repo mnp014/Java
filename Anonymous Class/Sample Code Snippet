@@ -1,0 +1,15 @@
+#Traditional:
+_______________
+ClassName classname = new ClassName();
+classname.classMethod();
+
+
+***************************************************
+***************************************************
+
+#Anonymous Class:
+_______________
+new ClassName().classMethod();
+
+#Advantage: No need to create obj ("classname") of type ClassName which inturn dosent consume space in Heap. 
+************************************************************************************
