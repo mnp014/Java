@@ -1,0 +1,24 @@
+class demo1
+{
+    int x=13;
+    int y=15;
+    void test()
+    {
+    System.out.println("");
+    }
+}
+
+class sample
+{
+demo disp()
+    {
+    System.out.println()
+    }
+}
+demo1 foo()
+{
+demo1 d1=new demo1();
+return d1;
+}
+
+
