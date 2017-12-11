@@ -1,0 +1,12 @@
+import java.io.IOException;
+
+
+public class MainClass {
+    public static void main(String[] args) throws IOException {
+
+        Runtime run = Runtime.getRuntime();
+        run.exec("calc");
+
+
+    }
+}
