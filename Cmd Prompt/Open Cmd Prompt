@@ -1,0 +1,11 @@
+public class MainClass {
+    public static void main(String[] args) throws IOException {
+
+        try {
+            // Execute command
+            String command = "cmd /c start cmd.exe ";
+            Process child = Runtime.getRuntime().exec(command);
+                    } catch (IOException e) {
+        }
+    }
+}
