@@ -1,3 +1,5 @@
+Source: https://www.tutorialspoint.com/javaexamples/method_enum1.html
+_________________________________________________________________________________________________________________________
 enum Car {
    lamborghini(900),tata(2),audi(50),fiat(15),honda(12);
    private int price;
