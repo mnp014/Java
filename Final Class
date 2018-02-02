@@ -1,0 +1,6 @@
+A final class is simply a class that can't be extended.
+
+(This does not mean that all references to objects of the class would act as if they were declared as  final.)
+____________________________________________________________________________________________________________________________
+
+
