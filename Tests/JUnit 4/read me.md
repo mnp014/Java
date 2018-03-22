@@ -99,20 +99,20 @@ If you have several test classes, you can combine them into a test suite. Runnin
 *******************************************************************************************************************************
 The following example code demonstrates the usage of a test suite. It contains two test classes (MyClassTest and MySecondClassTest). If you want to add another test class, you can add it to the @Suite.SuiteClasses statement.
 -------------------------------------------------------------------------------------------------------------------------------
-package com.vogella.junit.first;
+        package com.vogella.junit.first;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.junit.runners.Suite.SuiteClasses;
+        import org.junit.runner.RunWith;
+        import org.junit.runners.Suite;
+        import org.junit.runners.Suite.SuiteClasses;
 
-@RunWith(Suite.class)
-@SuiteClasses({
-        MyClassTest.class,
-        MySecondClassTest.class })
+        @RunWith(Suite.class)
+        @SuiteClasses({
+                MyClassTest.class,
+                MySecondClassTest.class })
 
-public class AllTests {
-
-}
+        public class AllTests {
+        
+        }
 _______________________________________________________________________________________________________________________________
 *******************************************************************************************************************************
  Disabling tests
@@ -134,102 +134,102 @@ You can use the @Parameter annotation on public fields to get the test values in
 -------------------------------------------------------------------------------------------------------------------------------
 The following code shows an example for a parameterized test. It tests the multiply() method of the MyClass class which is included as inner class for the purpose of this example.
 -------------------------------------------------------------------------------------------------------------------------------
-package testing;
+        package testing;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+        import org.junit.Test;
+        import org.junit.runner.RunWith;
+        import org.junit.runners.Parameterized;
+        import org.junit.runners.Parameterized.Parameters;
 
-import java.util.Arrays;
-import java.util.Collection;
+        import java.util.Arrays;
+        import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.runners.Parameterized.*;
+        import static org.junit.Assert.assertEquals;
+        import static org.junit.runners.Parameterized.*;
 
-@RunWith(Parameterized.class)
-public class ParameterizedTestFields {
+        @RunWith(Parameterized.class)
+        public class ParameterizedTestFields {
 
-    // fields used together with @Parameter must be public
-    @Parameter(0)
-    public int m1;
-    @Parameter(1)
-    public int m2;
-    @Parameter(2)
-    public int result;
-
-
-    // creates the test data
-    @Parameters
-    public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { 1 , 2, 2 }, { 5, 3, 15 }, { 121, 4, 484 } };
-        return Arrays.asList(data);
-    }
+        // fields used together with @Parameter must be public
+        @Parameter(0)
+        public int m1;
+        @Parameter(1)
+        public int m2;
+        @Parameter(2)
+        public int result;
 
 
-    @Test
-    public void testMultiplyException() {
-        MyClass tester = new MyClass();
-        assertEquals("Result", result, tester.multiply(m1, m2));
-    }
-
-
-    // class to be tested
-    class MyClass {
-        public int multiply(int i, int j) {
-            return i *j;
+        // creates the test data
+        @Parameters
+        public static Collection<Object[]> data() {
+                Object[][] data = new Object[][] { { 1 , 2, 2 }, { 5, 3, 15 }, { 121, 4, 484 } };
+                return Arrays.asList(data);
         }
-    }
 
-}
+
+        @Test
+        public void testMultiplyException() {
+                MyClass tester = new MyClass();
+                assertEquals("Result", result, tester.multiply(m1, m2));
+        }
+
+
+        // class to be tested
+        class MyClass {
+                public int multiply(int i, int j) {
+                return i *j;
+                }
+        }
+
+        }
 Alternatively to using the @Parameter annotation you can use a constructor in which you store the values for each test. The number of elements in each array provided by the method annotated with @Parameters must correspond to the number of parameters in the constructor of the class. The class is created for each parameter and the test values are passed via the constructor to the class.
 -------------------------------------------------------------------------------------------------------------------------------
-package de.vogella.junit.first;
+        package de.vogella.junit.first;
 
-import static org.junit.Assert.assertEquals;
+        import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.Collection;
+        import java.util.Arrays;
+        import java.util.Collection;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+        import org.junit.Test;
+        import org.junit.runner.RunWith;
+        import org.junit.runners.Parameterized;
+        import org.junit.runners.Parameterized.Parameters;
 
-@RunWith(Parameterized.class)
-public class ParameterizedTestUsingConstructor {
+        @RunWith(Parameterized.class)
+        public class ParameterizedTestUsingConstructor {
 
-    private int m1;
-    private int m2;
+        private int m1;
+        private int m2;
 
-    public ParameterizedTestUsingConstructor(int p1, int p2) {
-        m1 = p1;
-        m2 = p2;
-    }
-
-    // creates the test data
-    @Parameters
-    public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { 1 , 2 }, { 5, 3 }, { 121, 4 } };
-        return Arrays.asList(data);
-    }
-
-
-    @Test
-    public void testMultiplyException() {
-        MyClass tester = new MyClass();
-        assertEquals("Result", m1 * m2, tester.multiply(m1, m2));
-    }
-
-
-    // class to be tested
-    class MyClass {
-        public int multiply(int i, int j) {
-            return i *j;
+        public ParameterizedTestUsingConstructor(int p1, int p2) {
+                m1 = p1;
+                m2 = p2;
         }
-    }
 
-}
+        // creates the test data
+        @Parameters
+        public static Collection<Object[]> data() {
+                Object[][] data = new Object[][] { { 1 , 2 }, { 5, 3 }, { 121, 4 } };
+                return Arrays.asList(data);
+        }
+
+
+        @Test
+        public void testMultiplyException() {
+                MyClass tester = new MyClass();
+                assertEquals("Result", m1 * m2, tester.multiply(m1, m2));
+        }
+
+
+        // class to be tested
+        class MyClass {
+                public int multiply(int i, int j) {
+                return i *j;
+                }
+        }
+
+        }
 If you run this test class, the test method is executed with each defined parameter. In the above example the test method is executed three times.
 -------------------------------------------------------------------------------------------------------------------------------
 A more flexible and easier to write approach is provided by the JUnitParams from https://github.com/Pragmatists/JUnitParams.
@@ -239,52 +239,52 @@ JUnit Rules
 *******************************************************************************************************************************
 Via JUnit rules you can add behavior to each tests in a test class. You can annotate fields of type TestRule with the @Rule annotation. You can create objects which can be used and configured in your test methods. This adds more flexibility to your tests. You could, for example, specify which exception message you expect during the execution of your test code.
 -------------------------------------------------------------------------------------------------------------------------------
-package de.vogella.junit.first;
+        package de.vogella.junit.first;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+        import org.junit.Rule;
+        import org.junit.Test;
+        import org.junit.rules.ExpectedException;
 
-public class RuleExceptionTesterExample {
+        public class RuleExceptionTesterExample {
 
-  @Rule
-  public ExpectedException exception = ExpectedException.none();
+        @Rule
+        public ExpectedException exception = ExpectedException.none();
 
-  @Test
-  public void throwsIllegalArgumentExceptionIfIconIsNull() {
-    exception.expect(IllegalArgumentException.class);
-    exception.expectMessage("Negative value not allowed");
-    ClassToBeTested t = new ClassToBeTested();
-    t.methodToBeTest(-1);
-  }
-}
+        @Test
+        public void throwsIllegalArgumentExceptionIfIconIsNull() {
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Negative value not allowed");
+        ClassToBeTested t = new ClassToBeTested();
+        t.methodToBeTest(-1);
+        }
+        }
 JUnit already provides several useful rule implementations. For example, the TemporaryFolder class allows to setup files and folders which are automatically removed after each test run.
 
 The following code shows an example for the usage of the TemporaryFolder implementation.
 
-package de.vogella.junit.first;
+        package de.vogella.junit.first;
 
-import static org.junit.Assert.assertTrue;
+        import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
+        import java.io.File;
+        import java.io.IOException;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+        import org.junit.Rule;
+        import org.junit.Test;
+        import org.junit.rules.TemporaryFolder;
 
-public class RuleTester {
+        public class RuleTester {
 
-  @Rule
-  public TemporaryFolder folder = new TemporaryFolder();
+        @Rule
+        public TemporaryFolder folder = new TemporaryFolder();
 
-  @Test
-  public void testUsingTempFolder() throws IOException {
-    File createdFolder = folder.newFolder("newfolder");
-    File createdFile = folder.newFile("myfilefile.txt");
-    assertTrue(createdFile.exists());
-  }
-}
+        @Test
+        public void testUsingTempFolder() throws IOException {
+        File createdFolder = folder.newFolder("newfolder");
+        File createdFile = folder.newFile("myfilefile.txt");
+        assertTrue(createdFile.exists());
+        }
+        }
 
 For more examples of existing rules see https://github.com/junit-team/junit4/wiki/Rules.
 _______________________________________________________________________________________________________________________________
@@ -298,13 +298,13 @@ The following is a simple example for adding a log statement to an Android appli
 package testing.android.vogella.com.asynctask;
 
 
-import android.util.Log;
+    import android.util.Log;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+    import org.junit.rules.TestRule;
+    import org.junit.runner.Description;
+    import org.junit.runners.model.Statement;
 
-public class MyCustomRule implements TestRule {
+    public class MyCustomRule implements TestRule {
     private Statement base;
     private Description description;
 
@@ -345,45 +345,45 @@ Categories
 *******************************************************************************************************************************
 It is possible to define categories of tests and include or exclude them based on annotations. The following example is based on the JUnit 4.8 release notes.
 -------------------------------------------------------------------------------------------------------------------------------
-public interface FastTests { /* category marker */
-}
+        public interface FastTests { /* category marker */
+        }
 
-public interface SlowTests { /* category marker */
-}
+        public interface SlowTests { /* category marker */
+        }
 
-public class A {
-    @Test
-    public void a() {
-        fail();
-    }
+        public class A {
+        @Test
+        public void a() {
+                fail();
+        }
 
-    @Category(SlowTests.class)
-    @Test
-    public void b() {
-    }
-}
+        @Category(SlowTests.class)
+            @Test
+        public void b() {
+        }
+        }
 
-@Category({ SlowTests.class, FastTests.class })
-public class B {
-    @Test
-    public void c() {
-    }
-}
+        @Category({ SlowTests.class, FastTests.class })
+        public class B {
+        @Test
+        public void c() {
+        }
+        }
 
-@RunWith(Categories.class)
-@IncludeCategory(SlowTests.class)
-@SuiteClasses({ A.class, B.class })
-// Note that Categories is a kind of Suite
-public class SlowTestSuite {
-    // Will run A.b and B.c, but not A.a
-}
+        @RunWith(Categories.class)
+        @IncludeCategory(SlowTests.class)
+        @SuiteClasses({ A.class, B.class })
+        // Note that Categories is a kind of Suite
+        public class SlowTestSuite {
+        // Will run A.b and B.c, but not A.a
+        }
 
-@RunWith(Categories.class)
-@IncludeCategory(SlowTests.class)
-@ExcludeCategory(FastTests.class)
-@SuiteClasses({ A.class, B.class })
-// Note that Categories is a kind of Suite
-public class SlowTestSuite {
-    // Will run A.b, but not A.a or B.c
-}
+        @RunWith(Categories.class)
+        @IncludeCategory(SlowTests.class)
+        @ExcludeCategory(FastTests.class)
+        @SuiteClasses({ A.class, B.class })
+        // Note that Categories is a kind of Suite
+        public class SlowTestSuite {
+        // Will run A.b, but not A.a or B.c
+        }
 _______________________________________________________________________________________________________________________________
