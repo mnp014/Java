@@ -5,4 +5,6 @@ java.io.Externalizable.
 
 
 
-`Node 1` *->* `Object` *->* `Serialized` *->* `Network`  *->* `Deserialized` *->* `Object` *->* `Node 2`
+`Node 1` **->** `Object` **->** `Serialized` **->** `Network`  **->** `Deserialized` **->** `Object` **->** `Node 2`
+
+**Note:** Serializable is a [marker interface](https://github.com/mnp014/Java/blob/master/Marker%20Interface%20%20%20%20%20%20%20.md) that adds serializable behaviour to the class implementing it.
