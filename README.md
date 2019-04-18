@@ -26,6 +26,7 @@ Contains all the frequest used java snippets
  ### T
  ### U
  ### V
+ - [Variable](https://github.com/mnm3011/Java/tree/master/02%20variables)
  ### W
  ### X
  ### Y
