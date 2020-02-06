@@ -18,6 +18,23 @@
 ___
 ## Derivation
 
+#### Using seperate class
+```
+class C1 implements Runnable{
+        public void run() {
+                //logic 1
+        }
+}
+
+public class MainClass{
+        public static void main(){
+                Runnable Obj = new C1();
+                Thread t1 = new Thread( Obj );
+                t1.start();
+        }
+} 
+```
+---
 
 #### Normal Runnable
 ```
@@ -30,6 +47,20 @@ ___
 
 ```
 ---
+#### Using Anonymous Class
+```
+        Runnable runnable = new Runnable() {
+            public void run() {
+                //logic 1
+            }
+        };
+        
+        Thread t1 = new Thread( runnable );
+        t1.start;
+
+```
+---
+
 #### Runnable replased as lambda expression
 ```
 
