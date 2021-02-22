@@ -2,6 +2,7 @@
 Contains all the frequest used java snippets
 
  ### A
+  - [Annotations](https://github.com/mnp014/Java/blob/master/Annotations.md)
  ### B
  ### C
  ### D
