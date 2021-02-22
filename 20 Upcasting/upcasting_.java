@@ -45,3 +45,21 @@ class upcasting_
         System.out.println("main");
     }
 }
+
+
+/**
+OUTPUT:
+
+main
+function1
+x value:20
+test
+function1
+x value:20
+test
+function1
+x value:20
+test
+main
+
+**/
