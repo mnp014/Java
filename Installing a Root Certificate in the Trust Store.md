@@ -17,7 +17,7 @@ Now you have file with keystore and you have to add it to your JVM.
 Import the example.cer file into cacerts in command line (may need administrator command prompt):
 
 ```
-keytool -import -alias example -keystore  "C:\Program Files\Java\jdk-11.0.14\lib\security\cacerts" -file example.cer
+./keytool.exe -import -alias <some_alias> -keystore  "C:\Program Files\Java\jdk-11.0.14\lib\security\cacerts" -file </path_of_cert/example.cer>
 ```
 
 ### STEP 4:   
