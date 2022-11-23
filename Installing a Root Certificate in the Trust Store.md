@@ -1,6 +1,6 @@
 ### STEP 1:
 
-Go to URL in your browser:
+Go to URL in your browser:  
 `firefox` - click on HTTPS certificate chain (the lock icon right next to URL address).  
             Click "more info" > "security" > "show certificate" > "details" > "export..".  
             Pickup the name and choose file type example.cer  
