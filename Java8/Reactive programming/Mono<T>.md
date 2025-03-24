@@ -7,7 +7,7 @@ Used for asynchronous single-value or empty responses.
 ```java
 public final class Mono<T> extends Publisher<T>
 ```
-##### (Mono implements the Reactive Streams Publisher interface)
+##### (Mono implements the [Reactive Streams](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md) [Publisher](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md) interface)
 
 💡 Example:
 
