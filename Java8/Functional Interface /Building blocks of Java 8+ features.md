@@ -11,7 +11,7 @@ Following are the building blocks of Java 8+ features like:
 | Consumer  | [`Consumer<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/Consumer%3CT%3E.md), [`BiConsumer<T,U>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/BiConsumer%3CT%2C%20U%3E.md)     | Perform actions (void return)                |
 | Supplier  | [`Supplier<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/Supplier%3CT%3E.md)                        | Provide/generate values                      |
 | Predicate | [`Predicate<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/Predicate%3CT%3E.md), [`BiPredicate<T,U>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/BiPredicate%3CT%2C%20U%3E.md)   | Test/evaluate boolean conditions             |
-| Operator  | [`UnaryOperator<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/UnaryOperator%3CT%3E.md), [`BinaryOperator<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/BinaryOperator%3CT%3E.md) | Special case of Function with same input/output types |
+| Operator  | [`UnaryOperator<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/UnaryOperator%3CT%3E.md), [`BinaryOperator<T>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/BinaryOperator%3CT%3E.md) | Special case of Function with same input & output types |
 
 Note : All the above categories are not `Async` and `Non-Blocking`
 
