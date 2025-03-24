@@ -1,9 +1,9 @@
 Following are the building blocks of Java 8+ features like:
 1) [Streams API](https://github.com/mnp014/Java/blob/master/Streams%20API%20/%20Methods.md)
-2) Lambdas
-3) Method references
-4) Reactive programming
-5) Declarative pipelines
+2) [Lambdas](https://github.com/mnp014/Java/blob/master/Java8/Lambdas.md)
+3) [Method references](https://github.com/mnp014/Java/blob/master/Java8/Method%20References.md)
+4) [Reactive programming](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Intro.md)
+5) [Declarative pipelines](https://github.com/mnp014/Java/blob/master/Java8/Declarative%20pipelines.md)
 
 | Type      | Examples                             | Purpose                                      |
 |-----------|--------------------------------------|----------------------------------------------|
