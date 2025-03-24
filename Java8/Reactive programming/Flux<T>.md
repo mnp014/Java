@@ -37,6 +37,6 @@ Flux.fromIterable(List.of("A", "B", "C"));
 | Emits         | 0 or 1 item                                     | 0 to N items                                     |
 | Use case      | REST response, DB fetch, 1 result               | Streams, multiple results, Server-Sent Events (SSE) |
 | Backpressure  | Supported                                       | Supported                                        |
-| Part of       | Project Reactor (Reactive Streams)              | Project Reactor                                  |
+| Part of       | Project Reactor ([Reactive Streams](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Intro.md))              | Project ([Reactive Streams](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Intro.md))                                  |
 | Async?        |  ✅                                             |  ✅                                             | 
 | Blocking?     |  ❌                                             |  ❌                                             |    
