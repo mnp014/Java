@@ -5,10 +5,9 @@ Reactive programming is about building systems that are asynchronous, non-blocki
 
 ----
 📦 Common libraries:
- - Project Reactor (Mono, Flux)
- - RxJava
-
-Used in Spring WebFlux  
+ - `Project Reactor` ( [Mono\<T>](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Mono%3CT%3E.md) , [Flux\<T>](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Flux%3CT%3E.md) )
+ - `RxJava` (Observable<T>, Single<T>, Maybe<T>, Completable, Observer<T>, Schedulers)
+ - Used in Spring WebFlux  
 
 ----
 🔧 Example (using Reactor):
