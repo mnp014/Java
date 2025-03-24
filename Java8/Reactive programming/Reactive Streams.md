@@ -1,9 +1,9 @@
  ✅ Summary Table
 | Component       | Role                                | Key Methods                                             |
 |-----------------|-------------------------------------|---------------------------------------------------------|
-| `Publisher<T>`  | Emits data to a `Subscriber`         | `subscribe(Subscriber<T>)`                              |
-| `Subscriber<T>` | Consumes data from a `Publisher`     | `onSubscribe()`, `onNext()`, `onComplete()`, `onError()`|
-| `Subscription`  | Manages the flow between both sides  | `request(n)`, `cancel()`                                |
+| [`Publisher<T>`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#1-publishert)  | Emits data to a `Subscriber`         | `subscribe(Subscriber<T>)`                              |
+| [`Subscriber<T>`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#2-subscribert) | Consumes data from a `Publisher`     | `onSubscribe()`, `onNext()`, `onComplete()`, `onError()`|
+| [`Subscription`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#3-subscription)  | Manages the flow between both sides  | `request(n)`, `cancel()`                                |
 
 ----
 
@@ -16,7 +16,7 @@
 
 ----
 
-1) Publisher\<T>
+#### 1) Publisher\<T>
 
 📌 `Purpose:`
 Represents a provider of a potentially unbounded number of sequenced elements, published asynchronously to a subscriber, according to the Reactive Streams specification.
@@ -103,7 +103,7 @@ Done!
 
 ---
 
-2) Subscriber\<T>
+#### 2) Subscriber\<T>
 📌 `Purpose:`
 Represents a consumer that subscribes to a Publisher<T> and receives a sequence of events (data, completion, or error), while controlling the flow using a Subscription.
 
@@ -148,7 +148,7 @@ Subscriber<String> subscriber = new Subscriber<>() {
 
 ---
 
-3) Subscription
+#### 3) Subscription
    
 📌 `Purpose:`
 Represents a link between a Publisher and a Subscriber, used to control demand (backpressure) and allow cancellation.
