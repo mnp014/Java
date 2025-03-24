@@ -4,7 +4,7 @@ Reactive programming is about building systems that are asynchronous, non-blocki
 💡 `Think of it as:` A system that reacts to data as it comes, like a live stream. 
 
 ----
-🔧 Common libraries:
+📦 Common libraries:
  - Project Reactor (Mono, Flux)
  - RxJava
 
