@@ -7,6 +7,7 @@ class program2
         System.out.print('j');
         System.out.println(true);
         System.out.print(false);
+        
         int s;
         float a;
         byte k;
@@ -21,8 +22,6 @@ class program2
         a=9990;
         s=1;
         j=8;
-
-
 
     }
 }
