@@ -1,5 +1,5 @@
 Following are the building blocks of Java 8+ features like:
-1) Streams API
+1) [Streams API](https://github.com/mnp014/Java/blob/master/Streams%20API%20/%20Methods.md)
 2) Lambdas
 3) Method references
 4) Reactive programming
