@@ -14,3 +14,12 @@ BinaryOperator<Integer> max = (a, b) -> a > b ? a : b;
 
 System.out.println(max.apply(5, 10)); // Output: 10
 ```
+----
+✅ Main Difference:
+
+| Feature             | `BiFunction<T, U, R>`                                     | `BinaryOperator<T>`                                      |
+|---------------------|-----------------------------------------------------------|-----------------------------------------------------------|
+| Type parameters      | Takes two different input types (`T`, `U`) and returns `R` | Takes two inputs of the same type (`T`, `T`) and returns `T` |
+| Interface extends    | `BiFunction<T, U, R>` is a top-level interface            | `BinaryOperator<T>` extends `BiFunction<T, T, T>`         |
+| Use case             | Generic two-input transformation                          | Combining two values of same type (e.g., reduce)          |
+| Return type          | Can be a different type than inputs                       | Must be same type as inputs                               |
