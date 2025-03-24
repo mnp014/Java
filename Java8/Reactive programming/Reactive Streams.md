@@ -1,9 +1,9 @@
  ✅ Summary Table
 | Component       | Role                                | Key Methods                                             |
 |-----------------|-------------------------------------|---------------------------------------------------------|
-| [`Publisher<T>`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#1-publishert)  | Emits data to a `Subscriber`         | `subscribe(Subscriber<T>)`                              |
-| [`Subscriber<T>`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#2-subscribert) | Consumes data from a `Publisher`     | `onSubscribe()`, `onNext()`, `onComplete()`, `onError()`|
-| [`Subscription`](https://github.com/mnp014/Java/edit/master/Java8/Reactive%20programming/Reactive%20Streams.md#3-subscription)  | Manages the flow between both sides  | `request(n)`, `cancel()`                                |
+| [`Publisher<T>`](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md#1-publishert)  | Emits data to a `Subscriber`         | `subscribe(Subscriber<T>)`                              |
+| [`Subscriber<T>`](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md#2-subscribert) | Consumes data from a `Publisher`     | `onSubscribe()`, `onNext()`, `onComplete()`, `onError()`|
+| [`Subscription`](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md#3-subscription)  | Manages the flow between both sides  | `request(n)`, `cancel()`                                |
 
 ----
 
