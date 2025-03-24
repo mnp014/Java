@@ -17,7 +17,7 @@ System.out.println(max.apply(5, 10)); // Output: 10
 ----
 ✅ Main Difference:
 
-| Feature             | `BiFunction<T, U, R>`                                     | `BinaryOperator<T>`                                      |
+| Feature             | [`BiFunction<T, U, R>`](https://github.com/mnp014/Java/blob/master/Java8/Functional%20Interface%20/BiFunction%3CT%2C%20U%2C%20R%3E.md)                                     | `BinaryOperator<T>`                                      |
 |---------------------|-----------------------------------------------------------|-----------------------------------------------------------|
 | Type parameters      | Takes two different input types (`T`, `U`) and returns `R` | Takes two inputs of the same type (`T`, `T`) and returns `T` |
 | Interface extends    | `BiFunction<T, U, R>` is a top-level interface            | `BinaryOperator<T>` extends `BiFunction<T, T, T>`         |
