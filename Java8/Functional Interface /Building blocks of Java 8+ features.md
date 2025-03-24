@@ -19,27 +19,27 @@ Note : All the above categories are not `Async` and `Non-Blocking`
 ----
 
 Function<T, R>
-```
+```java
 Function<Integer, String> intToString = i -> "Value: " + i;
 System.out.println(intToString.apply(10)); // Value: 10
 ```
 Consumer<T>
-```
+```java
 Consumer<String> printer = msg -> System.out.println("Message: " + msg);
 printer.accept("Hello!");
 ```
 Supplier<T>
-```
+```java
 Supplier<Double> randomSupplier = () -> Math.random();
 System.out.println(randomSupplier.get()); // random double
 ```
 Predicate<T>
-```
+```java
 Predicate<String> isNotEmpty = str -> !str.isEmpty();
 System.out.println(isNotEmpty.test("Test")); // true
 ```
 BiConsumer<T, U>
-```
+```java
 BiConsumer<String, Integer> mapAdder = (k, v) -> map.put(k, v);
 mapAdder.accept("age", 25); // adds "age" → 25 to map
 ```
