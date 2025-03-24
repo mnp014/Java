@@ -6,7 +6,7 @@ Represents a reactive publisher that emits 0 to N items — like a stream of eve
 ```java
 public final class Flux<T> extends Publisher<T>
 ```
-##### (Flux also implements the Publisher<T> interface)
+##### (Flux also implements the [Publisher\<T>](https://github.com/mnp014/Java/blob/master/Java8/Reactive%20programming/Reactive%20Streams.md) interface)
 
 💡 Example:
 
