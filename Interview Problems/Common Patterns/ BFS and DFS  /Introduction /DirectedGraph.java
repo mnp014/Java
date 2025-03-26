@@ -26,7 +26,7 @@ public class DirectedGraph {
 
 
     /**
-     * ##### Breadth First Search.#####
+     * ##### Breadth First Search. #####
      * #########################################################################
      * Given a starting node,
      * 1) Check if the node has been visited
@@ -58,7 +58,7 @@ public class DirectedGraph {
     }
 
     /**
-     * ##### Depth First Search.#####
+     * ##### Depth First Search. #####
      * #########################################################################
      * Given a starting node,
      * 1) Check if the node has been visited
