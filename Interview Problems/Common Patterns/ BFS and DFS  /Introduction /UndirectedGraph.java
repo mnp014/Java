@@ -20,7 +20,14 @@ public class UndirectedGraph {
     }
 
     /**
-     * Breadth First Search.
+     * ##### Breadth First Search.#####
+     * #########################################################################
+     * Given a starting node,
+     * 1) Check if the node has been visited
+     * 2) If not visited earlier, fetch it's neighbours and store it in "queue".
+     * 3) For each of it's neighbours in queue, Check if the node has been visited.
+     * 4) Repeat step 2 & 3 until all nodes are visited.
+     * #########################################################################
      *
      * @param start starting point of BFS.
      */
@@ -44,7 +51,14 @@ public class UndirectedGraph {
     }
 
     /**
-     * Depth First Search.
+     * ##### Depth First Search.#####
+     * #########################################################################
+     * Given a starting node,
+     * 1) Check if the node has been visited
+     * 2) If not visited earlier, fetch it's neighbours and store it in "stack".
+     * 3) For each of it's neighbours in queue, Check if the node has been visited.
+     * 4) Repeat step 2 & 3 until all nodes are visited.
+     * #########################################################################
      *
      * @param node starting point of BFS.
      */
