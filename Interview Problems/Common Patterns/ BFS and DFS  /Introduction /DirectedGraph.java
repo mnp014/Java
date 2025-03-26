@@ -13,6 +13,17 @@ public class DirectedGraph {
     public void addEdge(String source, String destination) {
         adj.computeIfAbsent(source, k -> new ArrayList<>()).add(destination);
     }
+    
+    /**
+     * Method to get neighbours.
+     *
+     * @param source source of neighbours.
+     * @return neighbours of source.
+     */
+    public List<String> getNeighboursForNode(String source) {
+        return adj.getOrDefault(source, new ArrayList<>());
+    }
+
 
     /**
      * Breadth First Search.
@@ -29,7 +40,8 @@ public class DirectedGraph {
             if (!visited.contains(node)) {
                 System.out.print(node + " ");
                 visited.add(node);
-                for (String neighbor : adj.getOrDefault(node, new ArrayList<>())) {
+                for (String neighbor : getNeighboursForNode(node)) {
+
                     if (!visited.contains(neighbor)) {
                         queue.offer(neighbor);
                     }
@@ -52,7 +64,7 @@ public class DirectedGraph {
         if (!visited.contains(node)) {
             System.out.print(node + " ");
             visited.add(node);
-            for (String neighbor : adj.getOrDefault(node, new ArrayList<>())) {
+            for (String neighbor : getNeighboursForNode(node)) {
                 dfsHelper(neighbor, visited);  // Recursive.
             }
         }
