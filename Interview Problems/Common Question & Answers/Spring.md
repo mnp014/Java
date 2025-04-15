@@ -557,7 +557,8 @@ So Spring will scan the package of this class and its sub-packages.
 | `@Service`       | Business logic service class                          |
 | `@Repository`    | DAO layer bean (with exception translation)           |
 | `@Controller`    | MVC controller                                        |
-| `@RestController`| REST API controller                                   |
+| `@RestController`| REST API controller                                   |  
+
 ⮞ All of the above are detected during component scanning.  
 
 📦 TL;DR:
@@ -590,7 +591,8 @@ When Spring starts up:
 | `@Service`        | Business logic layer                              |
 | `@Repository`     | Data access layer (with exception translation)    |
 | `@Controller`     | MVC controller                                    |
-| `@RestController` | REST controller                                   |
+| `@RestController` | REST controller                                   |  
+
 All of these are just stereotypes of `@Component`, so Spring can pick them up.  
 
 💡Where to Declare Component Scanning?   
@@ -649,8 +651,150 @@ public class Car {
 
 ---
 #### What does @Component signify?    
+`@Component` is a Spring annotation that marks a Java class as a `Spring-managed` bean. It tells Spring,  
+“Hey, this class is a candidate to be automatically detected and added to the IoC container.”  
+
+💡Simple Definition:   
+`@Component = "Make this class a bean, and let Spring handle its lifecycle."`
+
+💡Example:  
+```java
+@Component
+public class Engine {
+    public void start() {
+        System.out.println("Engine started!");
+    }
+}
+```
+If this class is in a package scanned by Spring (via `@ComponentScan` or `@SpringBootApplication`), Spring will:  
+⮞ Automatically create an instance of Engine  
+⮞ Register it in the ApplicationContext  
+⮞ Make it available for autowiring in other components  
+
+Behind the Scenes   
+⮞ `@Component` is a stereotype annotation.   
+⮞ It’s a specialization of `@Bean`, but used for automatic scanning (whereas `@Bean` is manual).  
+⮞ All stereotype annotations like `@Service`, `@Repository`, and `@Controller` are meta-annotated with @Component.   
+
+📌 Common Stereotypes Built on `@Component`:  
+| Annotation        | Usage                                                             |
+|-------------------|-------------------------------------------------------------------|
+| `@Component`      | Generic component                                                 |
+| `@Service`        | Business/service layer                                            |
+| `@Repository`     | DAO/persistence layer                                             |
+| `@Controller`     | Web layer (MVC)                                                   |
+| `@RestController` | REST API controller (`@Controller` + `@ResponseBody`)             |
+
+⮞ These are more semantic — they behave the same as `@Component`, but make code more meaningful.
+
+⚠️ Important Note:  
+⮞ `@Component` alone doesn’t create the object unless:  
+1️⃣⮞ The class is in a package being scanned.  
+2️⃣⮞ You have enabled component scanning using `@ComponentScan` or `@SpringBootApplication`.  
+
+🧪 In Practice:  
+⮞ Spring handles the injection automatically. You never need to say `new Engine()` anywhere.  
+```java
+@Component
+public class Engine {}
+
+@Component
+public class Car {
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        System.out.println("Car is driving...");
+        engine.start();
+    }
+}
+```
+
+
 ---
 #### What does @Autowired signify?    
+`@Autowired` is a Spring annotation used to automatically inject dependencies into a Spring-managed bean.  
+It tells Spring:  
+`“Please find a matching bean in the container and inject it here.”`  
+
+💡Simple Definition:   
+`@Autowired = "Let Spring handle wiring this dependency for me."`
+
+💡Example:  
+```java
+@Component
+public class Engine {
+    public void start() {
+        System.out.println("Engine started!");
+    }
+}
+
+@Component
+public class Car {
+
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        engine.start();
+    }
+}
+```
+
+⮞ Spring sees @Autowired on the engine field.  
+⮞ It looks in the ApplicationContext for a bean of type Engine.  
+⮞ Finds one, and injects it automatically.  
+
+💡Where You Can Use @Autowired:  
+| Usage Location                               | Example                                              |
+|---------------------------------------------|------------------------------------------------------|
+| Field (common)                               | `@Autowired private Engine engine;`                  |
+| Constructor (recommended for required dependencies) | `@Autowired public Car(Engine engine)`              |
+| Setter (useful for optional dependencies)    | `@Autowired public void setEngine(Engine engine)`    |
+
+💡 Constructor Injection (Preferred Style):  
+```java
+@Component
+public class Car {
+    private final Engine engine;
+
+    @Autowired  // optional since Spring 4.3+ if only one constructor
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+}
+```
+
+🧠  What Happens Behind the Scenes?  
+⮞ `@Autowired` is handled by `AutowiredAnnotationBeanPostProcessor`.  
+⮞ At runtime, Spring inspects the class and tries to inject dependencies:  
+1️⃣⮞ By type (default behavior)  
+2️⃣⮞ Throws `NoSuchBeanDefinitionException` if no match is found  
+3️⃣⮞ Throws `NoUniqueBeanDefinitionException` if multiple matches are found  
+
+
+Handling Multiple Beans  
+```java
+@Autowired
+@Qualifier("dieselEngine")
+private Engine engine;
+```
+Use `@Qualifier` to tell Spring which bean to inject when multiple candidates exist.  
+
+⚠️ Optional Dependencies  
+```java
+@Autowired(required = false)
+private TurboCharger turbo;
+```
+If no bean of type `TurboCharger` is found, Spring won’t fail — it will leave it `null`.  
+
+💡 Benefits of @Autowired:  
+✅ Promotes loose coupling  
+✅ Reduces boilerplate code  
+✅ Makes testing and mocking easier  
+✅ Integrates seamlessly with Spring's IoC container  
+
+
 ---
 #### What’s the difference Between @Controller, @Component, @Repository, and @Service Annotations in Spring?    
 ---
