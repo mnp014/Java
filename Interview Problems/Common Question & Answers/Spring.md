@@ -515,7 +515,7 @@ Make sure to annotate your classes with @Component, @Service, @Repository, or @C
 
 ---
 #### How does Spring know where to search for Components or Beans?    
-✅ 1. Using @ComponentScan Annotation (Java Config)  
+✅ 1. Using `@ComponentScan` Annotation (Java Config)  
 In annotation-based configuration, Spring uses @ComponentScan to specify the base packages it should scan for beans.  
 ```java
 @Configuration
@@ -526,7 +526,7 @@ public class AppConfig {
 ⮞ Spring will scan the package com.example.myapp and all its sub-packages for annotated components.  
 ⮞ Without explicitly specifying, it scans the package of the configuration class by default.  
 
-✅ 2. Using @SpringBootApplication (Spring Boot)  
+✅ 2. Using `@SpringBootApplication` (Spring Boot)  
 If you're using Spring Boot, the main class has:  
 ```java
 @SpringBootApplication
@@ -741,11 +741,11 @@ public class Car {
 }
 ```
 
-⮞ Spring sees @Autowired on the engine field.  
-⮞ It looks in the ApplicationContext for a bean of type Engine.  
+⮞ Spring sees `@Autowired` on the engine field.  
+⮞ It looks in the `ApplicationContext` for a bean of type `Engine`.  
 ⮞ Finds one, and injects it automatically.  
 
-💡Where You Can Use @Autowired:  
+💡Where You Can Use `@Autowired`:  
 | Usage Location                               | Example                                              |
 |---------------------------------------------|------------------------------------------------------|
 | Field (common)                               | `@Autowired private Engine engine;`                  |
@@ -797,6 +797,88 @@ If no bean of type `TurboCharger` is found, Spring won’t fail — it will leav
 
 ---
 #### What’s the difference Between @Controller, @Component, @Repository, and @Service Annotations in Spring?    
+🧩 All of them are specializations of @Component  
+
+| Annotation        | Purpose                              | Layer it Represents     | Special Behavior                                                                 |
+|-------------------|---------------------------------------|--------------------------|----------------------------------------------------------------------------------|
+| `@Component`      | Generic Spring-managed component      | Any (utility/helper)     | None                                                                             |
+| `@Service`        | Business logic layer                  | Service Layer            | None (semantic indication of service responsibility)                            |
+| `@Repository`     | Data access layer (DAO)               | Persistence Layer        | Exception translation (wraps DB exceptions into Spring’s `DataAccessException`) |
+| `@Controller`     | Handles HTTP requests                 | Web Layer (MVC)          | Maps web requests via `@RequestMapping`, `@GetMapping`, etc.                    |
+| `@RestController` | `@Controller` + `@ResponseBody` combo | RESTful Web Layer        | Returns JSON/XML directly instead of rendering a view                           |
+
+💡 In Depth:  
+✅ `@Component`  
+⮞ The base annotation for Spring-managed beans.  
+⮞ Use it when no specific role fits.  
+```java
+@Component
+public class UtilityHelper {
+    // helper methods
+}
+```
+✅ `@Service`  
+⮞ Marks a service class containing business logic.  
+⮞ Helps with semantic clarity.  
+```java
+@Service
+public class PaymentService {
+    public void processPayment() {
+        // business logic
+    }
+}
+```
+✅ `@Repository`  
+⮞ Marks a DAO (Data Access Object) class.  
+⮞ Spring adds exception translation: converts SQLException to DataAccessException.  
+```java
+@Repository
+public class UserRepository {
+    public void save(User user) {
+        // DB interaction
+    }
+}
+```
+✅ `@Controller`  
+⮞ Marks a web controller in Spring MVC.  
+⮞ Maps web requests to handler methods.  
+```java
+@Controller
+public class HomeController {
+    
+    @GetMapping("/")
+    public String home() {
+        return "index"; // resolves to a view name
+    }
+}
+```
+✅ `@RestController`  
+⮞ Shortcut for `@Controller` + `@ResponseBody`.  
+⮞ Suitable for REST APIs.  
+```java
+@RestController
+public class ApiController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, JSON!";
+    }
+}
+```
+
+🎯 Summary Table:  
+| Annotation        | Bean Type        | Typical Usage         | Additional Features                                  |
+|-------------------|------------------|------------------------|------------------------------------------------------|
+| `@Component`      | Generic bean      | Utility/helper class   | None                                                 |
+| `@Service`        | Service bean      | Business logic         | None                                                 |
+| `@Repository`     | DAO bean          | DB access              | Exception translation (to Spring's `DataAccessException`) |
+| `@Controller`     | Web controller    | MVC controllers        | Request mapping via `@RequestMapping`, etc.         |
+| `@RestController` | REST controller   | REST API endpoints     | Auto JSON/XML response via `@ResponseBody`          |
+
+⚠️ Reminder:
+All of these work only if they are in a package scanned by Spring (`@ComponentScan` or `@SpringBootApplication`).  
+
+
 ---
 #### What is the default scope of a bean?    
 ---
