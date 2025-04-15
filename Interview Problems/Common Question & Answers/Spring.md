@@ -515,6 +515,55 @@ Make sure to annotate your classes with @Component, @Service, @Repository, or @C
 
 ---
 #### How does Spring know where to search for Components or Beans?    
+✅ 1. Using @ComponentScan Annotation (Java Config)  
+In annotation-based configuration, Spring uses @ComponentScan to specify the base packages it should scan for beans.  
+```java
+@Configuration
+@ComponentScan(basePackages = "com.example.myapp")
+public class AppConfig {
+}
+```
+⮞ Spring will scan the package com.example.myapp and all its sub-packages for annotated components.  
+⮞ Without explicitly specifying, it scans the package of the configuration class by default.  
+
+✅ 2. Using @SpringBootApplication (Spring Boot)  
+If you're using Spring Boot, the main class has:  
+```java
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+```
+⮞ `@SpringBootApplication` includes `@ComponentScan` by default:  
+```java
+@ComponentScan(basePackages = "com.example") // implicit
+```
+So Spring will scan the package of this class and its sub-packages.  
+🟦 `Best practice`: Put your main class in the root package to scan everything below.  
+
+✅ 3. Using XML Configuration (Old Style)  
+```xml
+<context:component-scan base-package="com.example.myapp"/>
+```
+⮞ This tells Spring to scan that package for beans.
+
+🔍 What is Spring looking for?  
+⮞ Spring scans for classes annotated with:  
+| Annotation       | Purpose                                               |
+|------------------|-------------------------------------------------------|
+| `@Component`     | Generic Spring-managed bean                           |
+| `@Service`       | Business logic service class                          |
+| `@Repository`    | DAO layer bean (with exception translation)           |
+| `@Controller`    | MVC controller                                        |
+| `@RestController`| REST API controller                                   |
+⮞ All of the above are detected during component scanning.  
+
+📦 TL;DR:
+Spring knows where to look because of `@ComponentScan` or `@SpringBootApplication`. It scans the `specified package` and its `sub-packages` for `annotated beans`.  
+
+
 ---
 #### What is a Component Scan?    
 ---
