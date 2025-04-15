@@ -295,10 +295,148 @@ These examples demonstrate how Spring automatically injects dependencies and man
 
 ---
 #### What is Auto Wiring?    
+Autowiring is a feature in Spring that automatically injects dependencies into a Spring bean without explicitly specifying them in the configuration. Spring uses Dependency Injection (DI) to do this behind the scenes.
+
+💡Simple Definition:   
+`Autowiring is Spring’s way of saying,`  
+`“Hey, I’ll figure out what this bean needs and provide it for you — no need to manually wire it.”`  
+
+💡Example:
+```java
+@Component
+public class Engine {
+    public String start() {
+        return "Engine started!";
+    }
+}
+
+@Component
+public class Car {
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}
+```
+⮞ `@Autowired` tells Spring to inject an instance of `Engine` into the `Car`.  
+⮞ You don't need to use `new Engine()` anywhere. Spring handles that.  
+
+💡 How Spring Performs Autowiring:  
+⮞ Scans for `@Component` beans using `@ComponentScan`  
+⮞ `Creates` and `manages` the beans in the `ApplicationContext`  
+⮞ Looks at `@Autowired` `fields`/`constructors`/`setters`  
+⮞ Finds `matching beans` by type  
+⮞ `Injects` them automatically  
+
+
+🗂️ Types of Dependency Injection:  
+| Type         | Description                                                                 |
+|--------------|-----------------------------------------------------------------------------|
+| `byType`     | Injects by matching type (e.g., `Engine`)                                   |
+| `byName`     | Injects by matching bean name (used in XML config)                          |
+| `constructor`| Injects via constructor if only one exists or marked with `@Autowired`      |
+| `no`         | Default in XML config (no autowiring)                                       |
+| `autodetect` | *(Deprecated)* Chooses between constructor and `byType` automatically       |
+
+
+💡 Benefits of Autowiring:  
+  ✅ Reduces boilerplate code  
+  ✅ Promotes loose coupling  
+  ✅ Enables easier unit testing  
+  ✅ Keeps code clean and maintainable  
+  
 ---
 #### What are the important roles of an IOC Container?    
+The IoC (Inversion of Control) Container is the core of the Spring Framework — it’s responsible for managing the lifecycle and configuration of application objects (beans).
+
+📦 Important Roles of the IoC Container in Spring:  
+| 🔢 | 📌 Role of IoC Container                       | 🔍 Description                                                                                   |
+|----|------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| 1️⃣ | Bean Creation                                 | Instantiates and manages Java objects (beans).                                                  |
+| 2️⃣ | Dependency Injection                          | Automatically injects required dependencies into beans (constructor/setter/field injection).     |
+| 3️⃣ | Bean Configuration                            | Reads metadata (XML, annotations, or Java config) to configure beans.                            |
+| 4️⃣ | Bean Lifecycle Management                     | Controls the full lifecycle: creation, initialization, destruction.                              |
+| 5️⃣ | Scope Management                              | Manages bean scopes: singleton, prototype, request, session, etc.                                |
+| 6️⃣ | Event Publication                             | Publishes and listens for events via `ApplicationEventPublisher`.                                |
+| 7️⃣ | Resource Loading                              | Provides utilities to access resources (like `.properties` files).                               |
+| 8️⃣ | AOP Support                                   | Creates proxies for beans to enable AOP (Aspect-Oriented Programming).                           |
+| 9️⃣ | Internationalization (i18n)                   | Supports message resolution for multiple locales.                                                |
+| 🔟 | Bean Post-Processors and Aware Interfaces      | Allows hooks before/after bean initialization and supports injecting context/environment directly into beans. |
+
+📦 IoC Container Interfaces in Spring
+| Interface          | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| `BeanFactory`       | Basic container; supports lazy loading and simple DI.                       |
+| `ApplicationContext`| Advanced container; builds on `BeanFactory` and adds support for AOP, i18n, events, etc. |
+
+Common implementations:  
+⮞ `ClassPathXmlApplicationContext`  
+⮞ `AnnotationConfigApplicationContext`  
+⮞ `GenericApplicationContext` (more flexible)  
+
+🔄 Lifecycle of a Bean in IoC Container:  
+1️⃣⮞ Read Configuration (XML, annotations, or Java classes)  
+2️⃣⮞ Instantiate Beans  
+3️⃣⮞ Inject Dependencies  
+4️⃣⮞ Call Aware Interfaces  
+5️⃣⮞ Apply Bean PostProcessors  
+6️⃣⮞ Call Initialization Methods  
+7️⃣⮞ Bean is Ready for Use  
+8️⃣⮞ Call Destroy Methods on Shutdown  
+
 ---
-#### What are Bean Factory and Application Context?    
+#### What are Bean Factory and Application Context?   
+🏭 1. BeanFactory   
+`BeanFactory` is the most basic Spring IoC container. It provides the fundamental features for managing beans, such as:  
+| Aspect             | Description                                                                 |
+|--------------------|-----------------------------------------------------------------------------|
+| 📦 Interface        | `org.springframework.beans.factory.BeanFactory`                             |
+| 🎯 Primary Feature  | Lazy-loading of beans (created only when needed)                            |
+| 🔧 Configuration    | XML-based or manual                                                         |
+| ⚙️ Use Case         | Lightweight applications, testing, or memory-sensitive apps                 |
+| ❌ Limitations      | No support for advanced features like AOP, events, or i18n                  |
+
+💡  Example (Old Style):  
+```java
+BeanFactory factory = new XmlBeanFactory(new FileSystemResource("beans.xml"));
+MyBean myBean = factory.getBean("myBean", MyBean.class);
+```
+🔻 `XmlBeanFactory` is deprecated — replaced by ApplicationContext.
+
+🌐 2. ApplicationContext  
+`ApplicationContext` is the more powerful and preferred container in Spring. It extends BeanFactory and provides many enterprise-level features.  
+| Aspect                  | Description                                                        |
+|-------------------------|--------------------------------------------------------------------|
+| 📦 Interface            | `org.springframework.context.ApplicationContext`                   |
+| ⚙️ Features              | Everything `BeanFactory` offers plus:                              |
+| ✅ AOP Support          | Yes                                                                |
+| ✅ Event Publishing     | Yes (`ApplicationEventPublisher`)                                  |
+| ✅ i18n Support         | Yes                                                                |
+| ✅ Bean PostProcessors  | Auto-detected                                                      |
+| ✅ Environment Abstraction | Yes                                                            |
+| ✅ Eager Loading        | Beans are created at startup (by default)                          |
+
+💡 Example (Modern Usage):  
+```java
+ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+MyBean myBean = context.getBean(MyBean.class);
+```
+Or, using annotations:  
+```java
+ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+```
+💡 Key Differences Summary:  
+| Feature                   | `BeanFactory`             | `ApplicationContext`           |
+|---------------------------|---------------------------|---------------------------------|
+| Bean Instantiation        | Lazy (on demand)          | Eager (at startup)              |
+| Event Handling            | ❌ Not supported           | ✅ Supported                    |
+| AOP Integration           | ❌ Manual                  | ✅ Automatic                    |
+| MessageSource (i18n)      | ❌ Not supported           | ✅ Supported                    |
+| Bean Post Processors      | ❌ Manual registration     | ✅ Auto-detected                |
+| Web Application Support   | ❌ Limited                 | ✅ Full support                 |
+
 ---
 #### Can you compare Bean Factory with Application Context?    
 | Feature                   | `BeanFactory`                                                                 | `ApplicationContext`                                                            |
