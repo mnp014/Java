@@ -1121,8 +1121,8 @@ This is a very common point of confusion, so let’s break it down clearly:
 ⮞ You're comparing two different kinds of things:  
 | Category                         | Concept Description                                                        |
 |----------------------------------|----------------------------------------------------------------------------|
-| ✅ BeanFactory vs ApplicationContext | These are Spring IoC Containers — they manage and provide beans           |
-| ✅ XML vs Java Configuration         | These
+| ✅ BeanFactory vs ApplicationContext | These are Spring IoC Containers — they manage and provide beans.           |
+| ✅ XML vs Java Configuration         | These are ways to configure what beans are created and how.
 
 📦 1. BeanFactory vs ApplicationContext:   
 ⮞ These are interfaces that represent Spring containers.  
