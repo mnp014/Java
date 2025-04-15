@@ -765,7 +765,7 @@ public class Car {
 }
 ```
 
-🧠  What Happens Behind the Scenes?  
+🧠 What Happens Behind the Scenes?  
 ⮞ `@Autowired` is handled by `AutowiredAnnotationBeanPostProcessor`.  
 ⮞ At runtime, Spring inspects the class and tries to inject dependencies:  
 1️⃣⮞ By type (default behavior)  
@@ -875,18 +875,146 @@ public class ApiController {
 | `@Controller`     | Web controller    | MVC controllers        | Request mapping via `@RequestMapping`, etc.         |
 | `@RestController` | REST controller   | REST API endpoints     | Auto JSON/XML response via `@ResponseBody`          |
 
-⚠️ Reminder:
+⚠️ Reminder:  
 All of these work only if they are in a package scanned by Spring (`@ComponentScan` or `@SpringBootApplication`).  
 
 
 ---
-#### What is the default scope of a bean?    
+#### What are the different scopes of a bean?    
+| Scope        | Description                                                      |
+|--------------|------------------------------------------------------------------|
+| `singleton` (default) | One shared instance per Spring container                         |
+| `prototype`           | A new instance every time it’s requested                         |
+| `request`             | One instance per HTTP request (Web apps only)                    |
+| `session`             | One instance per HTTP session                                    |
+| `application`         | One instance per `ServletContext`                                |
+| `websocket`           | One instance per WebSocket session (for WebSocket-based apps)    |
+
+
+---
+#### What is the default scope of a bean?     
+✅ singleton   
+
+---
+#### What does `singleton` mean in Spring?    
+⮞ Spring creates only one instance of the bean per Spring IoC container.  
+⮞ The same instance is shared across the entire application wherever it's injected.  
+
+💡 Example:  
+```java
+@Component
+public class MyBean {
+}
+```
+⮞ Even if you inject `MyBean` into multiple classes:
+```java
+@Autowired
+private MyBean bean1;
+
+@Autowired
+private MyBean bean2;
+```
+⮞ Both `bean1` and `bean2` refer to the same object.
+
+⚠️ Remember:  
+Singleton in Spring ≠ Singleton Design Pattern  
+⮞ Spring singleton = 1 per `container` (not per JVM).  
+⮞ Java singleton pattern = 1 per `JVM` using private constructor and static instance.  
+
+---
+#### How to Change the Scope?  
+```java
+@Component
+@Scope("prototype")
+public class MyBean {
+}
+```
+or
+```xml
+<bean id="myBean" class="com.example.MyBean" scope="prototype"/>
+```
+
 ---
 #### Are Spring beans thread safe?    
----
-#### What are the other scopes available?    
+❌ By default, Spring beans are not thread-safe.  
+Spring does not guarantee thread safety for beans, even though it creates singleton beans by default.  
+
+🧠 Why?  
+⮞ A Spring singleton bean means one instance per Spring container, not one thread.  
+⮞ If multiple threads access a bean and the bean maintains state (mutable fields), race conditions and data corruption can happen.  
+
+💡 Example (Not Thread-Safe):  
+```java
+@Component
+public class CounterService {
+    private int counter = 0;
+
+    public void increment() {
+        counter++;
+    }
+
+    public int getCount() {
+        return counter;
+    }
+}
+```
+⮞ If accessed by multiple threads (e.g., web requests), counter++ can cause race conditions because ++ is not atomic.   
+
+✅ Ways to Make Spring Beans Thread-Safe:  
+| Solution                          | Description                                                                 |
+|-----------------------------------|-----------------------------------------------------------------------------|
+| Stateless design (preferred)      | Avoid shared mutable state — use local variables instead of fields.         |
+| Synchronized methods/blocks       | Makes access to shared resources thread-safe, but can reduce performance.   |
+| `ThreadLocal`                     | Keeps separate copies of variables for each thread.                         |
+| Prototype scope                   | New bean instance per injection/request.                                    |
+| Immutable objects                 | Design your bean to be immutable — no setters, use final fields.            |
+| Concurrent collections/atomic types | Use `ConcurrentHashMap`, `AtomicInteger`, etc., for shared data.          |
+
+📌 Best Practice:  
+Design Spring beans to be stateless and let Spring handle state elsewhere, like:  
+⮞ In the request/session scope (if needed)  
+⮞ In a thread-safe service or data store  
+      
 ---
 #### How is Spring’s singleton bean different from Gang of Four Singleton Pattern?    
+| Feature         | Spring Singleton                                              | GoF Singleton Pattern                                               |
+|-----------------|----------------------------------------------------------------|---------------------------------------------------------------------|
+| 🔁 Scope         | One instance per Spring IoC container                          | One instance per JVM                                                |
+| ⚙️ Managed By     | Spring Framework                                               | You (manual implementation in code)                                 |
+| 🧱 Creation       | Created and managed by Spring during container initialization | Created manually using private constructor and static method        |
+| 🔒 Thread Safety  | Not guaranteed by default                                     | Thread safety must be manually ensured                              |
+| 🧪 Testability    | Easier to mock and test                                       | Harder to test due to tight coupling and static access              |
+| 🔄 Flexibility    | Easily swapped/overridden via config or profiles              | Fixed; hard to extend or change                                     |
+| 🧰 Usage          | Use `@Component` or `@Bean` (with default scope)              | Use static `getInstance()` method in class                          |
+
+💡 Example:  
+▶️ GoF Singleton Pattern Example (Manual)  
+```java
+public class MySingleton {
+    private static final MySingleton INSTANCE = new MySingleton();
+
+    private MySingleton() {}
+
+    public static MySingleton getInstance() {
+        return INSTANCE;
+    }
+}
+```
+▶️ Spring Singleton Example (Framework-managed)  
+```java
+@Component
+public class MyService {
+    // Spring ensures one instance per container
+}
+```
+⮞ Spring handles the `lifecycle`, `dependencies`, and `injection` — no static access needed.  
+
+🎯 Key Takeaway:  
+⮞ Spring Singleton = Scoped to `container`.  
+⮞ GoF Singleton = Global static instance per `JVM`.  
+⮞ ✅ Use `Spring Singleton` for beans when working inside a Spring application.  
+⮞ ❌ Avoid `manual singleton pattern` (GoF) in `Spring` apps — it fights against DI and testability.  
+
 ---
 #### What are the different types of dependency injections?    
 ---
