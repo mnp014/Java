@@ -75,14 +75,13 @@ Here:
 ⮞ Using `Dependency Injection (DI)`: Letting a `framework` like Spring manage and inject them.  
 ⮞ Using `Dependency Managers`: Like `Maven` or `Gradle`, which fetch libraries (external dependencies) your app needs.  
 
-🗂️ Types of Dependencies:  
+🗂️ Types of Dependencies:    
 | Type         | Example                                      |
 |--------------|----------------------------------------------|
 | Internal     | Classes/objects within the app               |
 | External     | Libraries like Apache Commons, Gson          |
 | Runtime      | A database, file system, or service          |
 | Compile-time | Other classes used directly in code          |
-
 
 ---
 #### What is IOC (Inversion of Control)?    
@@ -116,9 +115,9 @@ public class Car {
 
 💡 How Spring Implements IoC:  
 Spring uses:  
-  ✅`IoC Container`: Like ApplicationContext  
-  ✅`Dependency Injection (DI)`: Constructor, setter, or field injection  
-  ✅`Bean lifecycle management`: Spring creates, configures, and manages beans  
+  ✅ `IoC Container`: Like ApplicationContext  
+  ✅ `Dependency Injection (DI)`: Constructor, setter, or field injection  
+  ✅ `Bean lifecycle management`: Spring creates, configures, and manages beans  
 
  🎯 Benefits of IoC:  
 ➡️ Loose Coupling  
@@ -173,17 +172,24 @@ public class Car {
     }
 }
 ```
-⮞ Spring scans @Component classes
-⮞ Creates the Engine bean
-⮞ Injects it into the Car bean automatically
 
+⮞ Spring scans `@Component` classes  
+⮞ Creates the `Engine` bean  
+⮞ Injects it into the `Car` bean automatically  
 
+🗂️ Types of Dependency Injection:
 | Type           | Example / Notes                                                                 |
 |----------------|----------------------------------------------------------------------------------|
 | Constructor DI | ✅ Recommended for immutability and required dependencies                        |
 | Setter DI      | Useful for optional dependencies                                                 |
 | Field DI       | Quick and easy, but harder to test (not recommended for complex apps)           |
 
+
+🧠 Why DI is Awesome:  
+  ✅ Promotes loose coupling  
+  ✅ Improves testability (easy to inject mocks/stubs)  
+  ✅ Makes code more flexible and maintainable  
+  ✅ Centralizes object creation (managed by Spring container)  
 
 ---
 #### Can you give few examples of Dependency Injection?    
