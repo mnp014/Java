@@ -292,6 +292,50 @@ public class Car {
 ```  
 These examples demonstrate how Spring automatically injects dependencies and manages the lifecycle, helping you build loosely coupled, testable, and maintainable code.  
 
+---
+#### How do you choose between `setter` and `constructor` injections?  
+
+| Feature                      | Constructor Injection                                  | Setter Injection                                         |
+|-----------------------------|--------------------------------------------------------|----------------------------------------------------------|
+| 🔐 Immutability              | Promotes immutability (final fields)                  | Allows mutable state                                     |
+| 🔎 Required Dependencies     | Enforces all required dependencies at creation time   | Dependencies can be optional                            |
+| 💥 Null-Safety               | Safer — dependencies can't be null if constructor is called | Possible to forget setting a dependency             |
+| 🧪 Testability               | Easy to write unit tests (explicit deps in constructor)| Testable, but requires setting values separately         |
+| ♻️ Flexibility               | Less flexible — all args must be passed                | More flexible — can set different values at runtime      |
+| ✅ Best Use Case             | For mandatory dependencies                             | For optional/configurable dependencies                   |
+
+💡 Example: 
+ ▶️ Constructor Injection Example (Recommended)  
+ ```java
+@Component
+public class Car {
+    private final Engine engine;
+
+    @Autowired // optional since Spring 4.3 if only one constructor
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+}
+```
+⮞ Clear that `Engine` is required.  
+⮞ `engine` can be made `final`.  
+⮞ More `robust` for `long-term maintenance`.  
+
+▶️ Setter Injection Example  
+```java
+@Component
+public class Car {
+    private Engine engine;
+
+    @Autowired
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+}
+```
+⮞ Useful when:  
+1️⃣⮞ You have optional dependencies  
+2️⃣⮞ You need to reconfigure a bean after instantiation  
 
 ---
 #### What is Auto Wiring?    
@@ -900,7 +944,7 @@ All of these work only if they are in a package scanned by Spring (`@ComponentSc
 ⮞ Spring creates only one instance of the bean per Spring IoC container.  
 ⮞ The same instance is shared across the entire application wherever it's injected.  
 
-💡 Example:  
+💡 Example:   
 ```java
 @Component
 public class MyBean {
@@ -1015,14 +1059,6 @@ public class MyService {
 ⮞ ✅ Use `Spring Singleton` for beans when working inside a Spring application.  
 ⮞ ❌ Avoid `manual singleton pattern` (GoF) in `Spring` apps — it fights against DI and testability.  
 
----
-#### What are the different types of dependency injections?    
----
-#### What is setter injection?    
----
-#### What is constructor injection?    
----
-#### How do you choose between setter and constructor injections?    
 ---
 #### What are the different options available to create Application Contexts for Spring?  
 ---
