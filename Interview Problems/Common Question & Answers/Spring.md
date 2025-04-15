@@ -15,6 +15,30 @@
 #### What are Bean Factory and Application Context?    
 ---
 #### Can you compare Bean Factory with Application Context?    
+| Feature                   | `BeanFactory`                                                                 | `ApplicationContext`                                                            |
+|---------------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Definition                | Basic container for managing beans in Spring                                 | More advanced container with additional enterprise features                     |
+| Package                   | `org.springframework.beans.factory.BeanFactory`                              | `org.springframework.context.ApplicationContext`                                |
+| Eager vs Lazy Loading     | Beans are lazily loaded (created when requested)                             | Beans are eagerly loaded by default (created at startup)                        |
+| Internationalization (i18n) | Not supported                                                              | Supported (via `MessageSource`)                                                 |
+| Event Propagation         | Not supported                                                                 | Supports publishing and listening to events                                     |
+| Bean Post Processors      | Manual registration required                                                  | Automatically detects and registers them                                        |
+| Context Aware Beans       | Manual setup required                                                         | Automatically injects application context into aware beans                      |
+| Web Support               | Not supported                                                                 | Built-in support for web applications                                           |
+| Preferred Usage           | Lightweight applications or for testing                                       | Enterprise-level applications (commonly used)                                   |
+| Common Implementations    | `XmlBeanFactory` (now deprecated)                                             | `ClassPathXmlApplicationContext`, `AnnotationConfigApplicationContext`, etc.    |
+| Dependency Injection      | Yes                                                                            | Yes                                                     
+
+Sumary:|
+- BeanFactory is the bare minimum, suitable for simple scenarios or unit tests.  
+- ApplicationContext is a superset, providing more advanced features like:  
+-- internationalization,  
+-- event publishing,  
+-- AOP integration,  
+-- environment abstraction,  
+-- convenient integration with Spring Boot.  
+For most real-world applications, especially Spring Boot ones, ApplicationContext is preferred.  
+
 ---
 #### How do you create an application context with Spring?    
  - You can create an ApplicationContext in Spring in multiple ways, depending on whether you're using XML-based, annotation-based, or Java-based configuration.  
