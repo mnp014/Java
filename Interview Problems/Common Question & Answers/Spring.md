@@ -566,10 +566,87 @@ Spring knows where to look because of `@ComponentScan` or `@SpringBootApplicatio
 
 ---
 #### What is a Component Scan?    
----
 #### How do you define a component scan in XML and Java Configurations?    
----
 #### How is it done with Spring Boot?    
+
+Component Scan is a Spring feature that automatically detects and registers beans (classes annotated with @Component, @Service, @Repository, or @Controller) into the Spring IoC container at runtime — so you don’t have to define each bean manually.
+
+💡Simple Definition:  
+`Component Scan tells Spring:`  
+`“Hey, go look inside this package and find any classes that should be turned into beans.”`  
+
+💡How it Works  
+When Spring starts up:  
+1️⃣⮞ It reads your configuration (@Configuration, @SpringBootApplication, or XML).  
+2️⃣⮞ It looks at the @ComponentScan directive.  
+3️⃣⮞ It scans the specified packages and subpackages.  
+4️⃣⮞ Finds classes with bean-related annotations.  
+5️⃣⮞ Registers them as Spring-managed beans.  
+
+ Common Annotations Detected During Component Scanning  
+| Annotation        | Purpose                                           |
+|-------------------|---------------------------------------------------|
+| `@Component`      | Generic component                                 |
+| `@Service`        | Business logic layer                              |
+| `@Repository`     | Data access layer (with exception translation)    |
+| `@Controller`     | MVC controller                                    |
+| `@RestController` | REST controller                                   |
+All of these are just stereotypes of `@Component`, so Spring can pick them up.  
+
+💡Where to Declare Component Scanning?   
+✅ Java-based Configuration:    
+```java
+@Configuration
+@ComponentScan(basePackages = "com.example.myapp")
+public class AppConfig {
+}
+```
+
+✅ Spring Boot (Auto Component Scan):  
+```java
+@SpringBootApplication
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+```
+⮞ `@SpringBootApplication` includes `@ComponentScan` automatically.  
+⮞ It scans the package where this class is defined and all its sub-packages.  
+
+✅ XML Configuration:  
+```xml
+<context:component-scan base-package="com.example.myapp"/>
+```
+💡 Best Practices  
+⮞ Keep your main application class in the root package.  
+⮞ Keep related components grouped logically in sub-packages.  
+⮞ Use specific `basePackages` if you want tighter control over what gets scanned.  
+
+💡 Example:  
+```java
+// Scanned automatically
+@Component
+public class Engine {
+    public void start() {
+        System.out.println("Engine started!");
+    }
+}
+```
+```java
+@Component
+public class Car {
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        engine.start();
+    }
+}
+```
+⮞ As long as both are in a scanned package, you don’t need to define them manually in any config.  
+
+
 ---
 #### What does @Component signify?    
 ---
