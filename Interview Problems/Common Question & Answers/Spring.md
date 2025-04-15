@@ -193,6 +193,106 @@ public class Car {
 
 ---
 #### Can you give few examples of Dependency Injection?    
+✅ Example 1: Constructor Injection (Recommended)  
+```java
+@Component
+public class Engine {
+    public String start() {
+        return "Engine started!";
+    }
+}
+
+@Component
+public class Car {
+    private final Engine engine;
+
+    @Autowired // Optional since Spring 4.3+ if there's only one constructor
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}
+```
+✅ Example 2: Setter Injection  
+```java
+@Component
+public class Car {
+    private Engine engine;
+
+    @Autowired
+    public void setEngine(Engine engine) {
+        this.engine = engine;
+    }
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}
+```
+✅ Example 3: Field Injection (Not recommended for unit testing)  
+```java
+@Component
+public class Car {
+    @Autowired
+    private Engine engine;
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}
+```
+✅ Example 4: Using `@Qualifier` with Multiple Beans
+```java
+@Component("dieselEngine")
+public class DieselEngine implements Engine {
+    public String start() {
+        return "Diesel engine started!";
+    }
+}
+
+@Component("petrolEngine")
+public class PetrolEngine implements Engine {
+    public String start() {
+        return "Petrol engine started!";
+    }
+}
+
+@Component
+public class Car {
+    private final Engine engine;
+
+    @Autowired
+    public Car(@Qualifier("petrolEngine") Engine engine) {
+        this.engine = engine;
+    }
+
+    public void drive() {
+        System.out.println(engine.start());
+    }
+}
+```
+✅ Example 5: Injecting External Dependency (e.g., from application.properties)
+```properties
+# application.properties
+car.model=Toyota Supra
+```
+```java
+@Component
+public class Car {
+    @Value("${car.model}")
+    private String model;
+
+    public void showModel() {
+        System.out.println("Car model: " + model);
+    }
+}
+```  
+These examples demonstrate how Spring automatically injects dependencies and manages the lifecycle, helping you build loosely coupled, testable, and maintainable code.  
+
+
 ---
 #### What is Auto Wiring?    
 ---
